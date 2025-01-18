@@ -1,0 +1,14 @@
+---
+- name: diskspace verification
+  hosts: localhost
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Verify diskspace
+      ansible.builtin.shell: df -hT
+      register: disk_usage_output
+
+    - name: Diskspace usage
+      ansible.builtin.debug:
+        msg: "{{ disk_usage_output.stdout_lines }}"
