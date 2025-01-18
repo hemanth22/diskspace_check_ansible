@@ -24,6 +24,10 @@ jobs:
           name: Execution of ansible-playbook with python
           command: |
             /usr/bin/python3.12 diskspace.py
+      - run:
+          name: Execution of ansible-playbook with simple python
+          command: |
+            /usr/bin/python3.12 simple_diskspace.py
 
 workflows:
   ansi_app:
