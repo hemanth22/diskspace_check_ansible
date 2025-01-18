@@ -1,0 +1,23 @@
+---
+- name: Verify /vagrant mount and check disk space
+  hosts: localhost
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Check if /vagrant mount is available
+      ansible.builtin.mount:
+        path: /vagrant
+      register: mount_status
+      failed_when: mount_status.state != 'mounted'
+    
+    - name: Get disk space information for /vagrant
+      ansible.builtin.shell: "df -k /vagrant | tail -1 | awk '{print $4}'"
+      register: disk_space
+      failed_when: disk_space.rc != 0
+
+    - name: Verify if disk space is at least 15GB
+      ansible.builtin.assert:
+        that:
+          - disk_space.stdout | int >= 15360  # 15GB in KB
+        fail_msg: "/vagrant does not have at least 15GB of space available."
+        success_msg: "/vagrant has at least 15GB of space available."

@@ -12,6 +12,8 @@ runner = ansible_runner.run(
 )
 
 # Print the results
+print("\n")
+print("\n")
 print(f"Status: {runner.status}")
 print(f"Return Code: {runner.rc}")
 print(f"Output: {runner.stdout.read()}")
