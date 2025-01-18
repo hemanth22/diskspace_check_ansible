@@ -26,9 +26,9 @@ jobs:
             /usr/bin/python3.12 diskspace.py
 
 workflows:
-  ansible_app:
+  ansi_app:
     jobs:
-      - build
+      - build:
           filters:
             branches:
               only:
